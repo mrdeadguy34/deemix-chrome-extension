@@ -1,15 +1,22 @@
-function downloadAlbum() {
+function copyCommand(text) {
+	navigator.clipboard.writeText(text).then(() => {
+	}, () => {});
+}
 
+function downloadAlbum() {
+	copyCommand("deemix -l " + window.location.href);
 }
 
 function createButton() {
 	let button = document.createElement("input");
-	button.addEventListener("onclick", downloadAlbum);
 	button.value = "Download Album";
 	button.type = "button"
 	button.className = "root-0-3-1 containedPrimary-0-3-9";
 	document.getElementsByClassName("header-creator")[0].insertAdjacentElement(
 		"afterend", button)
+	button.addEventListener("click", downloadAlbum);
+
+	//todo add download selected songs
 
 }
 
