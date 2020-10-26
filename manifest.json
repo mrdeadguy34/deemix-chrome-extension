@@ -1,0 +1,12 @@
+{
+	"manifest_version": 2,
+	"name": "deemix-dl",
+	"description": "Download album or song from deezer.",
+	"version": "0.1",
+	"author": "mrdeadguy34",
+	"content_scripts": [{
+		"css": ["styles.css"],
+		"js": ["content.js"],
+		"matches": ["https://www.deezer.com/us/album/*"]
+	}]
+}
