@@ -1,7 +1,26 @@
+function copyCommand(text) {
+	navigator.clipboard.writeText(text).then(() => {
+	}, () => {});
+}
+
+function downloadAlbum() {
+		copyCommand("deemix -p ./ " + window.location.href);
+		alert("Copied command to clipboard");
+	}
+
+function downloadFromObject(urlObject)  {
+	let cmd = "deemix -p ./"
+	for (let url in urlObject)
+		cmd += " " + urlObject
+
+	copyCommand(cmd);
+	alert("Copied command to clipboard");
+}
+
 class deemix_dl_extension {
 
-	downloadAlbum() {
-		copyCommand("deemix -l " + window.location.href);
+	downloadSelected() {
+		downloadFromObject(this.selectedSongs);
 	}
 
 	createAlbumButton() {
@@ -12,9 +31,7 @@ class deemix_dl_extension {
 		button.className = "root-0-3-1 containedPrimary-0-3-9 deemix_dl_button";
 		document.getElementsByClassName("header-creator")[0].insertAdjacentElement(
 			"afterend", button)
-		button.addEventListener("click", this.downloadAlbum);
-
-		//todo add download selected songs
+		button.addEventListener("click", downloadAlbum);
 
 	}
 
@@ -25,6 +42,7 @@ class deemix_dl_extension {
 		button.className = "root-0-3-1 containedPrimary-0-3-9 deemix_dl_button";
 		document.getElementsByName("dlAlbumButton")[0].insertAdjacentElement(
 			"afterend", button);
+		button.addEventListener("click", this.downloadSelected);
 	}
 
 	addAlbum(checkbox) {
@@ -51,11 +69,6 @@ class deemix_dl_extension {
 		this.createAlbumButton();
 		this.createDownloadButton();
 	}
-}
-
-function copyCommand(text) {
-	navigator.clipboard.writeText(text).then(() => {
-	}, () => {});
 }
 
 function main() {
