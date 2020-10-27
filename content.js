@@ -1,26 +1,23 @@
-function copyCommand(text) {
-	navigator.clipboard.writeText(text).then(() => {
-	}, () => {});
-}
+var DL_URL = "http://127.0.0.1:8000/download/"
 
-function downloadAlbum() {
-		copyCommand("deemix -p ./ " + window.location.href);
-		alert("Copied command to clipboard");
+function downloadFromList(songsList)  {
+	var http = new XMLHttpRequest();
+	http.open("POST", DL_URL, true);
+	http.setRequestHeader("Content-type", "application/x-www-form-urlencoded")
+
+	let params = {"songs": songsList}
+	let urlEncodedData = "", urlEncodedDataPairs = [], name;
+	for( name in params ) {
+		urlEncodedDataPairs.push(encodeURIComponent(name)+'='+encodeURIComponent(params[name]));
 	}
 
-function downloadFromObject(urlObject)  {
-	let cmd = "deemix -p ./"
-	for (let url in urlObject)
-		cmd += " " + urlObject
-
-	copyCommand(cmd);
-	alert("Copied command to clipboard");
+	http.send(urlEncodedDataPairs);
 }
 
 class deemix_dl_extension {
 
 	downloadSelected() {
-		downloadFromObject(this.selectedSongs);
+		downloadFromList(this.selectedSongs);
 	}
 
 	createAlbumButton() {
@@ -31,7 +28,9 @@ class deemix_dl_extension {
 		button.className = "root-0-3-1 containedPrimary-0-3-9 deemix_dl_button";
 		document.getElementsByClassName("header-creator")[0].insertAdjacentElement(
 			"afterend", button)
-		button.addEventListener("click", downloadAlbum);
+		button.addEventListener("click", function() {
+			downloadFromList([window.location.href])
+		});
 
 	}
 
@@ -45,26 +44,21 @@ class deemix_dl_extension {
 		button.addEventListener("click", this.downloadSelected);
 	}
 
-	addAlbum(checkbox) {
+	addSong(checkbox) {
 		let songElement = checkbox.parentElement.parentElement.parentElement.children[2]
-		let songName = songElement.innerText;
+		var songUrl = songElement.children[0].children[0].href;
+
 		if (checkbox.checked) {
-
-			let songUrl = songElement.children[0].children[0].href;
-
-			this.selectedSongs[songName] = songUrl;
+			this.selectedSongs.push(songUrl);
 		} else {
-			delete this.selectedSongs[songName];
+			this.selectedSongs.pop(this.selectedSongs.indexOf(songUrl));
 		}
-
-
-		console.log(this.selectedSongs);
 	}
 
 
 	constructor() {
 
-		this.selectedSongs = {}
+		this.selectedSongs = []
 
 		this.createAlbumButton();
 		this.createDownloadButton();
@@ -76,7 +70,7 @@ function main() {
 
 	for (let checkbox of document.getElementsByClassName("checkbox-input")) {
 		checkbox.addEventListener("change", function () {
-			extension.addAlbum(checkbox);
+			extension.addSong(checkbox);
 		});
 	}
 
