@@ -2,3 +2,61 @@
 	margin: 4px !important;
 	margin-left: 0px;
 }
+
+.deemix_dl_container_pop_up {
+	z-index: 40;
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+}
+
+.deemix_dl_container_pop_up:target {
+    display: block;
+}
+
+.deemix_dl_hide_pop_up {
+	display: none !important;
+}
+
+.deemix_dl_pop_up {
+    text-align: center;
+    margin: 0 auto;
+    width: 45%;
+    height: 50%; 
+    position: relative;
+    left: 50%;
+    transform: translateX(-95%);
+    top: 25%;
+    z-index: 41;
+    padding: 30px; 
+    background-color: var(--color-white);
+    -webkit-box-shadow: 0 0 10px rgba(0,0,0,0.4);
+    -moz-box-shadow: 0 0 10px rgba(0,0,0,0.4); 
+    box-shadow: 0 0 10px rgba(0,0,0,0.4);
+}
+
+.deemix_dl_pop_up_close_a {
+	position: absolute;
+	font-size: 150%;
+	color: #EF5466;
+	top: 0px;
+	right: 0px;
+	padding: 12px;
+}
+
+.deemix_dl_pop_up h1 {
+	color: #EF5466;
+	font-size: 250%;
+	padding: 8px;
+}
+
+.deemix_dl_pop_up h3 {
+	font-size: 175%;
+	padding: 8px;
+}
+
+.deemix_dl_pop_up_bottom_text {
+	position: absolute;
+	bottom: 0;
+	padding: 12px;
+}

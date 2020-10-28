@@ -4,9 +4,18 @@
 	"description": "Download album or song from deezer.",
 	"version": "0.1",
 	"author": "mrdeadguy34",
+	"icons": {
+		"256": "256.png",
+		"128": "128.png",
+		"64": "64.png",
+		"32": "32.png",
+		"16": "16.png"
+	},
 	"content_scripts": [{
 		"css": ["styles.css"],
 		"js": ["content.js"],
-		"matches": ["https://www.deezer.com/us/album/*"]
+		"matches": [
+			"https://www.deezer.com/us/album/*"
+		]
 	}]
 }
