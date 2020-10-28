@@ -5,11 +5,11 @@
 	"version": "0.1",
 	"author": "mrdeadguy34",
 	"icons": {
-		"256": "256.png",
-		"128": "128.png",
-		"64": "64.png",
-		"32": "32.png",
-		"16": "16.png"
+		"256": "icons/256.png",
+		"128": "icons/128.png",
+		"64": "icons/64.png",
+		"32": "icons/32.png",
+		"16": "icons/16.png"
 	},
 	"content_scripts": [{
 		"css": ["styles.css"],

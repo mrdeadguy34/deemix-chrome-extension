@@ -15,6 +15,8 @@ const POPUP_HTML = `
 </div>
 `
 
+//TODO ADD VERSION CHECKING
+
 function downloadFromList(songsList) {
 	let data = {"songs": songsList}
 	let reqData = {
