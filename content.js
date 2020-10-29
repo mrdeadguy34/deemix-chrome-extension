@@ -1,3 +1,5 @@
+const VERSION = chrome.runtime.getManifest().version
+const GIT_MANIFEST = "https://raw.githubusercontent.com/mrdeadguy34/deemix-chrome-extension/master/manifest.json"
 const DL_URL = "https://deemix-dl.herokuapp.com/download/"
 const POPUP_HTML = `
 <div class="deemix_dl_container_pop_up deemix_dl_hide_pop_up">
@@ -17,49 +19,55 @@ const POPUP_HTML = `
 
 //TODO ADD VERSION CHECKING
 
-function downloadFromList(songsList) {
-	let data = {"songs": songsList}
-	let reqData = {
-		method: "POST",
-        headers: {
-          'Content-Type': 'application/json'
-        },
-		body: JSON.stringify(data)
-	}
-
-	showPopUp();
-	fetch(DL_URL, reqData)
-	.then(res => res.blob() )
-	.then(blob => {
-		let a = document.createElement("a");
-		var file = window.URL.createObjectURL(blob);
-		a.href = file;
-		a.download = "songs.zip";
-		a.click();
-		closePopUp();
-	}).catch(err => {
-		document.getElementsByClassName("deemix_dl_error_message")[0].innerHTML = err;
-		showPopUp();
-	});
-}
-
-function showPopUp() {
-		document.getElementsByClassName("deemix_dl_container_pop_up")[0].className = "deemix_dl_container_pop_up"
-
-}
-
-function closePopUp() {
-	document.getElementsByClassName("deemix_dl_container_pop_up")[0].className += " deemix_dl_hide_pop_up"
-}
-
-function createPopUp() {
-	document.body.insertAdjacentHTML("afterbegin", POPUP_HTML)
-}
-
 class deemix_dl_extension {
 
-	downloadSelected() {
-		downloadFromList(this.selectedSongs);
+	static checkForUpdate() {
+		fetch(GIT_MANIFEST)
+		.then(response => response.json())
+		.then(data => {
+			if (VERSION < data["version"]) {
+				//TODO Add update message here
+			}
+		});
+	}
+
+	static downloadFromList(songsList) {
+		let data = {"songs": songsList}
+		let reqData = {
+			method: "POST",
+	        headers: {
+	          'Content-Type': 'application/json'
+	        },
+			body: JSON.stringify(data)
+		}
+
+		deemix_dl_extension.showPopUp();
+		fetch(DL_URL, reqData)
+		.then(res => res.blob() )
+		.then(blob => {
+			let a = document.createElement("a");
+			var file = window.URL.createObjectURL(blob);
+			a.href = file;
+			a.download = "songs.zip";
+			a.click();
+			deemix_dl_extension.closePopUp();
+		}).catch(err => {
+			document.getElementsByClassName("deemix_dl_error_message")[0].innerHTML = err;
+			deemix_dl_extension.showPopUp();
+		});
+	}
+
+	static showPopUp() {
+			document.getElementsByClassName("deemix_dl_container_pop_up")[0].className = "deemix_dl_container_pop_up"
+
+	}
+
+	static closePopUp() {
+		document.getElementsByClassName("deemix_dl_container_pop_up")[0].className += " deemix_dl_hide_pop_up"
+	}
+
+	static createPopUp() {
+		document.body.insertAdjacentHTML("afterbegin", POPUP_HTML)
 	}
 
 	createAlbumButton() {
@@ -71,7 +79,7 @@ class deemix_dl_extension {
 		document.getElementsByClassName("header-creator")[0].insertAdjacentElement(
 			"afterend", button)
 		button.addEventListener("click", function() {
-			downloadFromList([window.location.href])
+			deemix_dl_extension.downloadFromList([window.location.href])
 		});
 
 	}
@@ -83,7 +91,7 @@ class deemix_dl_extension {
 		button.className = "root-0-3-1 containedPrimary-0-3-9 deemix_dl_button";
 		document.getElementsByName("dlAlbumButton")[0].insertAdjacentElement(
 			"afterend", button);
-		button.addEventListener("click", ev => this.downloadSelected(ev.srcElement));
+		button.addEventListener("click", ev => deemix_dl_extension.downloadFromList(this.selectedSongs));
 	}
 
 	addSong(checkbox) {
@@ -110,7 +118,7 @@ class deemix_dl_extension {
 function main() {
 	var extension = new deemix_dl_extension();
 
-	createPopUp();
+	deemix_dl_extension.createPopUp();
 
 	for (let checkbox of document.getElementsByClassName("checkbox-input")) {
 		checkbox.addEventListener("change", ev => extension.addSong(checkbox));

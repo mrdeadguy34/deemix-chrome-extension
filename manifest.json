@@ -2,7 +2,7 @@
 	"manifest_version": 2,
 	"name": "deemix-dl",
 	"description": "Download album or song from deezer.",
-	"version": "0.1",
+	"version": "0.1.5",
 	"author": "mrdeadguy34",
 	"icons": {
 		"256": "icons/256.png",

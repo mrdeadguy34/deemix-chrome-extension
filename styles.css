@@ -58,5 +58,6 @@
 .deemix_dl_pop_up_bottom_text {
 	position: absolute;
 	bottom: 0;
+	left: calc(25% - 12px);
 	padding: 12px;
 }
