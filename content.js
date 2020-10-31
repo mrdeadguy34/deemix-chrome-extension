@@ -1,5 +1,3 @@
-const VERSION = chrome.runtime.getManifest().version
-const GIT_MANIFEST = "https://raw.githubusercontent.com/mrdeadguy34/deemix-chrome-extension/master/manifest.json"
 const DL_URL = "https://deemix-dl.herokuapp.com/download/"
 const POPUP_HTML = `
 <div class="deemix_dl_container_pop_up deemix_dl_hide_pop_up">
@@ -20,16 +18,6 @@ const POPUP_HTML = `
 //TODO ADD VERSION CHECKING
 
 class deemix_dl_extension {
-
-	static checkForUpdate() {
-		fetch(GIT_MANIFEST)
-		.then(response => response.json())
-		.then(data => {
-			if (VERSION < data["version"]) {
-				//TODO Add update message here
-			}
-		});
-	}
 
 	static downloadFromList(songsList) {
 		let data = {"songs": songsList}
