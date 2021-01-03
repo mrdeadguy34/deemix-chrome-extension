@@ -1,4 +1,4 @@
-const DL_URL = "https://deemix-dl.herokuapp.com/download/"
+const DL_URL = "http://127.0.0.1:8000/download/"
 const POPUP_HTML = `
 <div class="deemix_dl_container_pop_up deemix_dl_hide_pop_up">
 	<div class="deemix_dl_pop_up">
@@ -64,7 +64,7 @@ class deemix_dl_extension {
 		button.value = "Download Album";
 		button.type = "button"
 		button.className = "root-0-3-1 containedPrimary-0-3-9 deemix_dl_button";
-		document.getElementsByClassName("header-creator")[0].insertAdjacentElement(
+		document.getElementsByClassName("_2kEwD")[0].insertAdjacentElement(
 			"afterend", button)
 		button.addEventListener("click", function() {
 			deemix_dl_extension.downloadFromList([window.location.href])
@@ -75,7 +75,7 @@ class deemix_dl_extension {
 	createDownloadButton() {
 		let button = document.createElement("input");
 		button.value = "Download Selected";
-		button.type = "button"
+		button.type = "button";
 		button.className = "root-0-3-1 containedPrimary-0-3-9 deemix_dl_button";
 		document.getElementsByName("dlAlbumButton")[0].insertAdjacentElement(
 			"afterend", button);
@@ -115,9 +115,9 @@ function main() {
 }
 
 var checkExist = setInterval(function() {
-	if (document.getElementsByClassName("header-creator")[0]) {
+	if (document.getElementsByClassName("datagrid-header")[0]) {
 		console.log("Running extension...");
-		main()
-		clearInterval(checkExist)
+		main();
+		clearInterval(checkExist);
 	}
 }, 100)
