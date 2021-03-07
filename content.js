@@ -2,7 +2,7 @@ const DL_URL = "http://127.0.0.1:8000/download/"
 const POPUP_HTML = `
 <div class="deemix_dl_container_pop_up deemix_dl_hide_pop_up">
 	<div class="deemix_dl_pop_up">
-		<a class="deemix_dl_pop_up_close_a" href="javascript:void(0)" onclick="this.parentElement.className += 'deemix_dl_hide_pop_up'">&#x2716</a>
+		<a class="deemix_dl_pop_up_close_a" href="javascript:void(0)" onclick="this.parentElement.parentElement.className += ' deemix_dl_hide_pop_up'">&#x2716</a>
 		<h1>Your selected files are being downloaded!</h1>
 		<h3>
 			These files make take a while to download please do not leave this page.
