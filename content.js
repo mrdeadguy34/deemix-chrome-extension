@@ -63,7 +63,7 @@ class deemix_dl_extension {
 		button.name = "dlAlbumButton"
 		button.value = "Download Album";
 		button.type = "button"
-		button.className = "root-0-3-1 containedPrimary-0-3-9 deemix_dl_button";
+		button.className = "deemix_dl_button";
 		document.getElementsByClassName("_2kEwD")[0].insertAdjacentElement(
 			"afterend", button)
 		button.addEventListener("click", function() {
@@ -76,7 +76,7 @@ class deemix_dl_extension {
 		let button = document.createElement("input");
 		button.value = "Download Selected";
 		button.type = "button";
-		button.className = "root-0-3-1 containedPrimary-0-3-9 deemix_dl_button";
+		button.className = "deemix_dl_button";
 		document.getElementsByName("dlAlbumButton")[0].insertAdjacentElement(
 			"afterend", button);
 		button.addEventListener("click", ev => deemix_dl_extension.downloadFromList(this.selectedSongs));
